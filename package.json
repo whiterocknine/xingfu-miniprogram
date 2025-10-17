@@ -1,0 +1,14 @@
+{
+  "name": "xingfu-leqing-web",
+  "version": "1.0.0",
+  "description": "幸福乐清微信小程序Web版本",
+  "private": true,
+  "scripts": {
+    "dev": "serve public",
+    "build": "echo \"No build step needed\"",
+    "start": "serve public"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}

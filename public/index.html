@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>幸福乐清 - 首页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="header-top">
+                <div class="location-bar">
+                    <i class="fas fa-location-dot location-icon"></i>
+                    <span class="location-text">乐清市中心</span>
+                </div>
+                <div class="message-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="message-badge">3</span>
+                </div>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="搜索商家、商品">
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="content">
+            <!-- 轮播Banner -->
+            <div class="banner-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide">
+                        <div class="banner-img">
+                            <img src="https://picsum.photos/800/400?random=1" alt="促销活动" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="banner-img">
+                            <img src="https://picsum.photos/800/400?random=2" alt="新品上市" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                </div>
+            </div>
+
+            <!-- 分类导航 -->
+            <div class="category-nav">
+                <div class="category-scroll">
+                    <div class="category-item active">推荐</div>
+                    <div class="category-item">美食</div>
+                    <div class="category-item">购物</div>
+                    <div class="category-item">娱乐</div>
+                    <div class="category-item">生活服务</div>
+                    <div class="category-item">教育</div>
+                    <div class="category-item">医疗健康</div>
+                </div>
+            </div>
+
+            <!-- 商家推荐 -->
+            <section class="merchants-section">
+                <div class="section-header">
+                    <h2 class="section-title">商家推荐</h2>
+                    <a href="#" class="view-all-link">
+                        更多 <i class="fas fa-chevron-right arrow-icon"></i>
+                    </a>
+                </div>
+                <div class="merchant-grid">
+                    <div class="merchant-card">
+                        <div class="merchant-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="merchant-info">
+                            <div class="merchant-name">乐清餐厅</div>
+                        </div>
+                    </div>
+                    <div class="merchant-card">
+                        <div class="merchant-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="merchant-info">
+                            <div class="merchant-name">购物中心</div>
+                        </div>
+                    </div>
+                    <div class="merchant-card">
+                        <div class="merchant-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="merchant-info">
+                            <div class="merchant-name">电影院</div>
+                        </div>
+                    </div>
+                    <div class="merchant-card">
+                        <div class="merchant-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="merchant-info">
+                            <div class="merchant-name">生活服务</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 商品展示 -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2 class="section-title">热门商品</h2>
+                    <a href="#" class="view-all-link">
+                        更多 <i class="fas fa-chevron-right arrow-icon"></i>
+                    </a>
+                </div>
+                <div class="product-grid">
+                    <div class="grid-product-card">
+                        <img src="https://picsum.photos/300/300?random=10" alt="商品图片" class="grid-product-img">
+                        <div class="grid-product-info">
+                            <div class="grid-product-name">乐清特色美食小吃 传统糕点礼盒装</div>
+                            <div class="grid-product-price">39.9</div>
+                        </div>
+                    </div>
+                    <div class="grid-product-card">
+                        <img src="https://picsum.photos/300/300?random=11" alt="商品图片" class="grid-product-img">
+                        <div class="grid-product-info">
+                            <div class="grid-product-name">精品茶叶礼盒 乐清本地特产</div>
+                            <div class="grid-product-price">88.0</div>
+                        </div>
+                    </div>
+                    <div class="grid-product-card">
+                        <img src="https://picsum.photos/300/300?random=12" alt="商品图片" class="grid-product-img">
+                        <div class="grid-product-info">
+                            <div class="grid-product-name">有机水果拼盘 新鲜时令水果</div>
+                            <div class="grid-product-price">29.9</div>
+                        </div>
+                    </div>
+                    <div class="grid-product-card">
+                        <img src="https://picsum.photos/300/300?random=13" alt="商品图片" class="grid-product-img">
+                        <div class="grid-product-info">
+                            <div class="grid-product-name">乐清旅游纪念品 特色手工艺品</div>
+                            <div class="grid-product-price">49.9</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部导航栏 -->
+        <footer class="footer-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-text">首页</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-compass nav-icon"></i>
+                <span class="nav-text">发现</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-shopping-cart nav-icon"></i>
+                <span class="nav-text">购物车</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user nav-icon"></i>
+                <span class="nav-text">我的</span>
+            </a>
+        </footer>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
