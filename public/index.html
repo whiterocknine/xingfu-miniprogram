@@ -6,169 +6,1666 @@
     <title>幸福乐清 - 首页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 项目CSS -->
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* CSS变量定义 */
+        :root {
+            /* 颜色变量 */
+            --primary-light-blue: #42A5F5;
+            --primary-blue: #2196F3;
+            --primary-dark-blue: #1976D2;
+            --accent-orange: #FF9800;
+            --success-green: #4CAF50;
+            --warning-yellow: #FFC107;
+            --error-red: #F44336;
+            --neutral-white: #FFFFFF;
+            --neutral-light: #F8F9FA;
+            --neutral-gray-light: #E9ECEF;
+            --neutral-gray: #DEE2E6;
+            --neutral-text-primary: #212529;
+            --neutral-text-secondary: #495057;
+            
+            /* 尺寸变量 */
+            --font-size-sm: 0.9rem;
+            --font-size-md: 1.05rem;
+            --font-size-lg: 1.2rem;
+            --font-size-xl: 1.35rem;
+            
+            --spacing-xs: 0.3rem;
+            --spacing-sm: 0.6rem;
+            --spacing-md: 1.0rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 1.8rem;
+            
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            
+            --header-height: 5rem;
+            --footer-height: 5rem;
+            --search-height: 3rem;
+        }
+        
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 模拟iPhone 14 Pro Max环境 */
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--neutral-light) 0%, var(--neutral-gray-light) 100%);
+            color: var(--neutral-text-primary);
+            max-width: 430px;
+            margin: 0 auto;
+            height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+        
+        /* 页面容器 */
+        .page-container {
+            max-width: 430px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        /* 顶部导航栏 - 微信小程序风格 */
+        .header {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-light-blue) 100%);
+            padding: var(--spacing-md) var(--spacing-lg);
+            height: var(--header-height);
+            z-index: 20; /* 确保header的交互元素在最上层 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            overflow: visible;
+        }
+        
+        /* 动态背景装饰 */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -30%;
+            width: 180%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            transform: rotate(-10deg);
+            pointer-events: none;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .message-icon {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            color: var(--neutral-white);
+        }
+        
+        .message-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: var(--error-red);
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        .location-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .location-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+            color: var(--neutral-white);
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+        }
+        
+        .location-text {
+            color: var(--neutral-white);
+            font-weight: 700;
+            font-size: var(--font-size-md);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .change-location {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: var(--font-size-sm);
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        
+        .change-location:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-lg);
+            padding: 0 var(--spacing-lg) 0 calc(var(--spacing-md) + 1.8rem);
+            height: var(--search-height);
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            width: 16px;
+            height: 16px;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+        }
+        
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: var(--font-size-md);
+            color: var(--neutral-text-primary);
+            font-weight: 500;
+        }
+        
+        .search-input::placeholder {
+            color: var(--neutral-text-secondary);
+        }
+        
+        .search-input:focus {
+            outline: none;
+        }
+        
+        /* 主内容区 */
+        .content {
+            margin-top: 0; /* 确保与header没有重叠 */
+            padding-bottom: calc(var(--footer-height) + 1rem);
+            padding-top: 0;
+        }
+        
+        /* 轮播Banner - 微信小程序风格 */
+        .banner-carousel {
+            position: relative;
+            width: 100%; /* 填充满整个宽度 */
+            margin: 0; /* 完全移除所有margin */
+            overflow: hidden;
+            border-radius: 0; /* 移除圆角，使其完全填充 */
+            box-shadow: none; /* 移除阴影 */
+            z-index: 10; /* 确保banner在header下方但在其他内容上方 */
+        }
+        
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            flex-shrink: 0;
+            width: 100%;
+            height: 180px; /* 保持适当高度 */
+        }
+        
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-light-blue) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+        
+        /* 分类导航 - 微信小程序风格 */
+        .category-nav {
+            background-color: var(--neutral-white);
+            padding: 16px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 10px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .category-scroll {
+            display: inline-flex;
+            padding: 0 16px;
+        }
+        
+        .category-item {
+            padding: 0 12px;
+            font-size: 14px;
+            color: var(--neutral-text-primary);
+            position: relative;
+            transition: all 0.25s ease;
+        }
+        
+        .category-item.active {
+            color: var(--primary-blue);
+            font-weight: 700;
+            background-color: rgba(33, 150, 243, 0.1);
+            padding: 4px 12px;
+            border-radius: 16px;
+        }
+        
+        .category-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background-color: #1E88E5;
+            border-radius: 1px;
+        }
+        
+        /* 商家推荐 - 微信小程序风格 */
+        .merchants-section {
+            background-color: var(--neutral-white);
+            margin-top: 10px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .merchants-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--primary-light-blue) 100%);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+        
+        .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--neutral-text-primary);
+            margin: 0;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+        
+        .view-all-link {
+            font-size: var(--font-size-sm);
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+            background: rgba(33, 150, 243, 0.08);
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+        }
+        
+        .view-all-link:hover {
+            color: var(--primary-dark-blue);
+            background: rgba(33, 150, 243, 0.15);
+        }
+        
+        .arrow-icon {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            color: var(--primary-blue);
+        }
+        
+        .merchant-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .merchant-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            transition: transform 0.25s ease;
+            border-radius: var(--radius-md);
+        }
+        
+        .merchant-card:hover {
+            transform: translateY(-3px);
+            background: rgba(0,0,0,0.02);
+        }
+        
+        .merchant-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-light-blue) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .merchant-icon::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+        }
+        
+        .merchant-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(33, 150, 243, 0.4);
+        }
+        
+        .merchant-icon svg {
+            width: 30px;
+            height: 30px;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .merchant-info {
+            padding: 4px 8px;
+            font-size: 12px;
+            color: var(--neutral-text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* 商品列表卡片样式 - 微信小程序风格 */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+            padding: 0 6px;
+        }
+        
+        .grid-product-card {
+            background-color: var(--neutral-white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grid-product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .grid-product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-orange));
+        }
+        
+        .grid-product-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .grid-product-card:hover .grid-product-img {
+            transform: scale(1.03);
+        }
+        
+        .grid-product-info {
+            padding: 8px 10px;
+        }
+        
+        .grid-product-name {
+            font-size: 13px;
+            color: var(--neutral-text-primary);
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            height: 36px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .grid-product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .grid-product-price::before {
+            content: '¥';
+            font-size: 12px;
+            margin-right: 1px;
+        }
+        
+        .merchant-info {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .merchant-name {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--neutral-text-primary);
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .merchant-desc {
+            font-size: 9px;
+            color: var(--neutral-text-secondary);
+            margin-bottom: 1px;
+        }
+        
+        .user-hint {
+            font-size: 9px;
+            color: var(--primary-blue);
+            background: rgba(33, 150, 243, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 2px;
+        }
+        
+        /* 商品展示 - 微信小程序风格 */
+        .products-section {
+            background-color: var(--neutral-white);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .products-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-orange) 0%, var(--warning-yellow) 100%);
+        }
+        
+        .products-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-left: -8px;
+        }
+        
+        .products-container {
+            display: inline-flex;
+            padding-left: 8px;
+        }
+        
+        .product-card {
+            width: 140px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-img {
+            transform: scale(1.03);
+        }
+        
+        .product-name {
+            font-size: 13px;
+            margin: 8px 10px 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            height: 36px;
+            color: var(--neutral-text-primary);
+            font-weight: 500;
+        }
+        
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin: 0 10px 8px;
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .product-price::before {
+            content: '¥';
+            font-size: 12px;
+            margin-right: 1px;
+        }
+        
+        /* 底部导航栏 - 微信小程序风格 */
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 430px;
+            margin: 0 auto;
+            height: var(--footer-height);
+            background-color: var(--neutral-white);
+            border-top: 1px solid var(--neutral-gray);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.5rem 0;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--neutral-text-secondary);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.25s ease;
+        }
+        
+        .nav-icon {
+            margin-bottom: 0.2rem;
+            width: 24px;
+            height: 24px;
+            transition: all 0.25s ease;
+        }
+        
+        .nav-text {
+            font-size: var(--font-size-sm);
+            color: var(--neutral-text-secondary);
+        }
+        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            animation: dotAppear 0.3s forwards;
+        }
+        
+        .nav-item.active .nav-text,
+        .nav-item.active .nav-icon {
+            color: var(--primary-blue);
+        }
+        
+        .nav-item.active .nav-icon {
+            transform: translateY(-6px);
+        }
+        
+        /* 动画效果 */
+        @keyframes dotAppear {
+            0% { opacity: 0; transform: scale(0); }
+            70% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* 优化横向滚动条样式 */
+        ::-webkit-scrollbar {
+            height: 4px;
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 2px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.3);
+        }
+        
+        /* 添加页面过渡效果 */
+        section {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        /* 适配iPhone 14 Pro Max的底部安全区域 */
+        @media screen and (min-width: 430px) {
+            .footer-nav {
+                padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+            }
+        }
+        
+        .nav-icon {            height: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-text {
+            font-size: 12px;
+            color: #757575;
+        }
+        
+        .nav-item.active .nav-text {
+            color: #FF9800;
+        }
+        
+        /* 图标样式 */
+        .svg-icon {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+        
+        /* 为你推荐 */
+        .recommended-section {
+            background-color: #FFFFFF;
+            margin-top: 10px;
+            padding: 16px;
+        }
+        
+        /* 模拟数据样式 */
+        /* 不再需要mock-merchant-img，替换为图标样式 */
+        
+        .mock-product-img {
+            width: 120px;
+            height: 120px;
+            background-color: #F5F5F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #BDBDBD;
+            font-size: 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        /* 隐藏滚动条但保留功能 */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* 智能叠放小组件容器 - 左右分布 */
+        .smart-stack-container {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .smart-stack-item {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stack-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .stack-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .view-more-link {
+            font-size: 12px;
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .stack-carousel {
+            position: relative;
+            overflow: hidden;
+            height: 200px; /* 固定高度 */
+        }
+        
+        .stack-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .stack-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        /* 单个专区样式 */
+        .single-zone-img {
+            background-color: #f0f0f0;
+            color: #666;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 140px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        
+        .single-zone-info {
+            text-align: center;
+            padding: 0 10px;
+        }
+        
+        .single-zone-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .single-zone-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* 专区卡片样式 */
+        .zone-card {
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .zone-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .zone-img {
+            height: 50px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .zone-info {
+            padding: 4px;
+            flex: 1;
+        }
+        
+        .zone-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .zone-desc {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        /* 指示器样式 */
+        .stack-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+        }
+        
+        .stack-indicator {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .stack-indicator.active {
+            background-color: #ff4444;
+            width: 10px;
+            border-radius: 2px;
+        }
+        
+        /* 商品选项卡样式 */
+        .product-tabs-container {
+            display: flex;
+            background-color: #f5f5f5;
+            border-radius: 16px;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .product-tab {
+            flex: 1;
+            padding: 6px 12px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .product-tab.active {
+            background-color: #ffffff;
+            color: #ff4444;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 商品卡片样式 */
+        .product-content {
+            display: none;
+            height: 100%;
+        }
+        
+        .product-content.active {
+            display: block;
+        }
+        
+        .products-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 8px;
+            height: 100%;
+        }
+        
+        .product-card {
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            padding: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mock-product-img {
+            width: 100%;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        
+        .product-name {
+            font-size: 12px;
+            line-height: 1.2;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            flex: 1;
+        }
+        
+        .product-price {
+            color: #ff4444;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .smart-stack-container {
+                flex-direction: column;
+            }
+            
+            .stack-carousel {
+                height: 240px;
+            }
+        }
+        
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 8px;
+            width: 120px;
+            margin-right: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .mock-product-img {
+            width: 100%;
+            height: 120px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .product-name {
+            font-size: 14px;
+            line-height: 1.3;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            height: 36px;
+        }
+        
+        .product-price {
+            color: #ff4444;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
         <!-- 顶部导航栏 -->
         <header class="header">
-            <div class="header-top">
-                <div class="location-bar">
-                    <i class="fas fa-location-dot location-icon"></i>
-                    <span class="location-text">乐清市中心</span>
+        <div class="header-top">
+            <div class="location-bar">
+                <div class="location-icon">
+                    <svg class="svg-icon" viewBox="0 0 24 24">
+                        <path d="M12,2C8.13,2,5,5.13,5,9c0,5.25,7,13,7,13s7-7.75,7-13C19,5.13,15.87,2,12,2z M12,11.5c-1.38,0-2.5-1.12-2.5-2.5
+                            s1.12-2.5,2.5-2.5s2.5,1.12,2.5,2.5S13.38,11.5,12,11.5z"/>
+                    </svg>
                 </div>
-                <div class="message-icon">
-                    <i class="fas fa-bell"></i>
-                    <span class="message-badge">3</span>
+                <span class="location-text">乐清市中心</span>
+                <div class="change-location">切换位置</div>
+            </div>
+            <div class="message-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M20,2H4C2.9,2,2,2.9,2,4v18l4-4H20c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z"/>
+                </svg>
+                <span class="message-badge">3</span>
+            </div>
+        </div>
+        <div class="search-bar">
+            <div class="search-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44
+                        C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5
+                        C14,7 12,5 9.5,5Z"/>
+                </svg>
+            </div>
+            <input type="text" class="search-input" placeholder="搜索商品、商家">
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="content">
+        <!-- 轮播Banner -->
+        <div class="banner-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <div class="banner-img">幸福乐清福利季</div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="banner-img">商城购物须知，客户售后指南</div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="banner-img">品质生活好物</div>
                 </div>
             </div>
-            <div class="search-bar">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="搜索商家、商品">
+            <div class="carousel-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
             </div>
-        </header>
+        </div>
 
-        <!-- 主内容区 -->
-        <main class="content">
-            <!-- 轮播Banner -->
-            <div class="banner-carousel">
-                <div class="carousel-container">
-                    <div class="carousel-slide">
-                        <div class="banner-img">
-                            <img src="https://picsum.photos/800/400?random=1" alt="促销活动" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
+        <!-- 分类导航 -->
+        <div class="category-nav">
+            <div class="category-scroll">
+                <div class="category-item active">本地生活</div>
+                <div class="category-item">美食</div>
+                <div class="category-item">饮品</div>
+                <div class="category-item">生鲜</div>
+                <div class="category-item">日用</div>
+                <div class="category-item">服装</div>
+                <div class="category-item">数码</div>
+                <div class="category-item">运动</div>
+            </div>
+        </div>
+
+        <!-- 商家推荐 -->
+        <section class="merchants-section">
+            <div class="section-header">
+                <h2 class="section-title">本地生活</h2>
+                <a href="#" class="view-all-link">全部100+商家</a>
+            </div>
+            <div class="merchant-grid">
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M18,10H17V4H15V10H13V4H11V10H10V2H4C2.89,2,2,2.89,2,4V20C2,21.1,2.89,22,4,22H20C21.1,22,22,21.1,22,20V12C22,10.89,21.1,10,20,10H18Z"/>
+                        </svg>
                     </div>
-                    <div class="carousel-slide">
-                        <div class="banner-img">
-                            <img src="https://picsum.photos/800/400?random=2" alt="新品上市" style="width:100%;height:100%;object-fit:cover;">
-                        </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">乐清优品超市</div>
+                        <div class="merchant-desc">30分钟送达</div>
                     </div>
                 </div>
-                <div class="carousel-indicators">
-                    <span class="indicator active"></span>
-                    <span class="indicator"></span>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M11.99,2C6.47,2,2,6.48,2,12C2,17.52,6.47,22,11.99,22C17.52,22,22,17.52,22,12C22,6.48,17.52,2,11.99,2M12,20C7.58,20,4,16.42,4,12C4,7.58,7.58,4,12,4C16.42,4,20,7.58,20,12C20,16.42,16.42,20,12,20M14,17H10V15H14V17M14,13H10V7H14V13Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">幸福餐厅</div>
+                        <div class="merchant-desc">45分钟送达</div>
+                    </div>
+                </div>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">城市便利店</div>
+                        <div class="merchant-desc">25分钟送达</div>
+                    </div>
+                </div>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M12,4C10.89,4 10,4.9 10,6C10,7.1 10.89,8 12,8C13.1,8 14,7.1 14,6C14,4.9 13.1,4 12,4M12,10C10.89,10 10,10.9 10,12C10,13.1 10.89,14 12,14C13.1,14 14,13.1 14,12C14,10.9 13.1,10 12,10M12,16C10.89,16 10,16.9 10,18C10,19.1 10.89,20 12,20C13.1,20 14,19.1 14,18C14,16.9 13.1,16 12,16Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">生活鲜蔬</div>
+                        <div class="merchant-desc">60分钟送达</div>
+                    </div>
+                </div>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M12,2C6.47,2,2,6.5,2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M8,14A4,4 0 0,0 12,18A4,4 0 0,0 16,14H14A2,2 0 0,1 12,16A2,2 0 0,1 10,14M8,10A4,4 0 0,0 12,14A4,4 0 0,0 16,10H14A2,2 0 0,1 12,12A2,2 0 0,1 10,10M8,6A4,4 0 0,0 12,10A4,4 0 0,0 16,6H14A2,2 0 0,1 12,8A2,2 0 0,1 10,6H8Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">阳光咖啡</div>
+                        <div class="merchant-desc">35分钟送达</div>
+                    </div>
+                </div>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19M12,17L15.5,14.2L16.91,15.61L12,20.5L7.09,15.61L8.5,14.2L12,17Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">精品书店</div>
+                        <div class="merchant-desc">40分钟送达</div>
+                    </div>
+                </div>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M16.5,4C19,4 21,6 21,8.5C21,11 19,13 16.5,13C14,13 12,11 12,8.5C12,6 14,4 16.5,4M9,11.5A1,1 0 0,1 8,12.5V13H5V11H3V9H5V7H8V8A1,1 0 0,1 9,9V11.5M13.5,11.5A1,1 0 0,1 12.5,12.5V13H9.5V11H7.5V9H9.5V7H12.5V8A1,1 0 0,1 13.5,9V11.5M21,22H3V20H21V22Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">运动器材</div>
+                        <div class="merchant-desc">50分钟送达</div>
+                    </div>
+                </div>
+                <div class="merchant-card">
+                    <div class="merchant-icon">
+                        <svg class="svg-icon" viewBox="0 0 24 24">
+                            <path d="M14,8A2,2 0 0,1 16,10A2,2 0 0,1 14,12A2,2 0 0,1 12,10A2,2 0 0,1 14,8M12,2A1,1 0 0,1 13,3V5.5A1.5,1.5 0 0,1 11.5,7A1.5,1.5 0 0,1 10,5.5V3A1,1 0 0,1 11,2H12M4,4A2,2 0 0,1 6,2H7A2,2 0 0,1 9,4V6H15V4A2,2 0 0,1 17,2H18A2,2 0 0,1 20,4V20A2,2 0 0,1 18,22H17A2,2 0 0,1 15,20V18H9V20A2,2 0 0,1 7,22H6A2,2 0 0,1 4,20V4M6,8V18H7V8H6M17,8V18H18V8H17M9,8H15V16H9V8Z"/>
+                        </svg>
+                    </div>
+                    <div class="merchant-info">
+                        <div class="merchant-name">母婴用品</div>
+                        <div class="merchant-desc">25分钟送达</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 智能叠放小组件容器 - 左右分布 -->
+        <div class="smart-stack-container" style="padding: 0; margin-top: 15px; margin-bottom: 15px; height: 233px; display: flex;">
+            <!-- 特色专区 - 智能叠放小组件 (左侧) -->
+            <div class="smart-stack-item" style="height: 100%; width: 100%; padding: 0; margin: 0; background-color: #f5f5f5; flex: 1;">
+                <div class="stack-header" style="display: none;">
+                </div>
+                <!-- 采用Swiper实现轮播 -->
+                <div class="stack-carousel zones-carousel" style="display: block; height: 100%; width: 100%; min-height: 233px; padding: 0; margin: 0; position: relative;">
+                    <div class="swiper zones-swiper" style="height: 100%; width: 100%;">
+                        <div class="swiper-wrapper" style="height: 100%;">
+                            <!-- 单个专区轮播项 -->
+                            <div class="swiper-slide" style="height: 100%; width: 100%; padding: 0; margin: 0;">
+                                <div class="single-zone-img" style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; background-image: url('https://picsum.photos/id/29/800/400'); background-size: cover; background-position: center;"><span style="font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); font-size: 24px;">山海协作</span></div>
+                            </div>
+                            <div class="swiper-slide" style="height: 100%; width: 100%; padding: 0; margin: 0;">
+                                <div class="single-zone-img" style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; background-image: url('https://picsum.photos/id/175/800/400'); background-size: cover; background-position: center;"><span style="font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); font-size: 24px;">非遗文化</span></div>
+                            </div>
+                            <div class="swiper-slide" style="height: 100%; width: 100%; padding: 0; margin: 0;">
+                                <div class="single-zone-img" style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; background-image: url('https://picsum.photos/id/239/800/400'); background-size: cover; background-position: center;"><span style="font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); font-size: 24px;">乡村振兴</span></div>
+                            </div>
+                            <div class="swiper-slide" style="height: 100%; width: 100%; padding: 0; margin: 0;">
+                                <div class="single-zone-img" style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; background-image: url('https://picsum.photos/id/42/800/400'); background-size: cover; background-position: center;"><span style="font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); font-size: 24px;">本地特色</span></div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination zones-pagination" style="position: absolute; bottom: 20px; left: 0; right: 0; margin: 0; z-index: 10; text-align: center;">
+                            <style>
+                                .swiper-pagination-bullet {
+                                    width: 8px;
+                                    height: 8px;
+                                    background-color: rgba(255, 255, 255, 0.5);
+                                    border-radius: 50%;
+                                    display: inline-block;
+                                    margin: 0 5px;
+                                    opacity: 0.7;
+                                }
+                                .swiper-pagination-bullet-active {
+                                    background-color: #ffffff;
+                                    opacity: 1;
+                                    transform: scale(1.2);
+                                }
+                            </style>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 分类导航 -->
-            <div class="category-nav">
-                <div class="category-scroll">
-                    <div class="category-item active">推荐</div>
-                    <div class="category-item">美食</div>
-                    <div class="category-item">购物</div>
-                    <div class="category-item">娱乐</div>
-                    <div class="category-item">生活服务</div>
-                    <div class="category-item">教育</div>
-                    <div class="category-item">医疗健康</div>
+            <!-- 热门商品+猜你喜欢 - 智能叠放小组件 (右侧) -->
+            <div class="smart-stack-item">
+                <div class="stack-header">
+                    <div class="product-tabs-container">
+                        <div class="product-tab active" data-tab="hot">热门商品</div>
+                        <div class="product-tab" data-tab="recommended">猜你喜欢</div>
+                    </div>
+                </div>
+                <div class="stack-carousel products-carousel">
+                    <!-- 热门商品内容 -->
+                    <div class="stack-slide product-content active" id="hot">
+                        <div class="products-container">
+                            <div class="product-card">
+                                <div class="mock-product-img">商品1</div>
+                                <div class="product-name">有机蔬菜套装</div>
+                                <div class="product-price">¥39.90</div>
+                            </div>
+                            <div class="product-card">
+                                <div class="mock-product-img">商品2</div>
+                                <div class="product-name">水果礼盒</div>
+                                <div class="product-price">¥89.90</div>
+                            </div>
+                            <div class="product-card">
+                                <div class="mock-product-img">商品3</div>
+                                <div class="product-name">优质大米</div>
+                                <div class="product-price">¥68.00</div>
+                            </div>
+                            <div class="product-card">
+                                <div class="mock-product-img">商品4</div>
+                                <div class="product-name">纯牛奶</div>
+                                <div class="product-price">¥78.80</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 猜你喜欢内容 -->
+                    <div class="stack-slide product-content" id="recommended">
+                        <div class="products-container">
+                            <div class="product-card">
+                                <div class="mock-product-img">商品6</div>
+                                <div class="product-name">洗衣液</div>
+                                <div class="product-price">¥89.90</div>
+                            </div>
+                            <div class="product-card">
+                                <div class="mock-product-img">商品7</div>
+                                <div class="product-name">厨房用纸</div>
+                                <div class="product-price">¥36.80</div>
+                            </div>
+                            <div class="product-card">
+                                <div class="mock-product-img">商品8</div>
+                                <div class="product-name">卫生纸</div>
+                                <div class="product-price">¥59.90</div>
+                            </div>
+                            <div class="product-card">
+                                <div class="mock-product-img">商品9</div>
+                                <div class="product-name">矿泉水</div>
+                                <div class="product-price">¥35.90</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 商品列表 -->
+        <section class="products-section">
+            <div class="section-header">
+                <h2 class="section-title">商品列表</h2>
+                <a href="#" class="view-all-link">
+                    <span>查看更多</span>
+                </a>
+            </div>
+            <div class="product-grid">
+                <div class="grid-product-card">
+                    <div class="mock-product-img grid-product-img">商品10</div>
+                    <div class="grid-product-info">
+                        <div class="grid-product-name">有机蔬菜套装 新鲜时蔬组合</div>
+                        <div class="grid-product-price">¥39.90</div>
+                    </div>
+                </div>
+                <div class="grid-product-card">
+                    <div class="mock-product-img grid-product-img">商品11</div>
+                    <div class="grid-product-info">
+                        <div class="grid-product-name">精品水果礼盒 进口水果组合</div>
+                        <div class="grid-product-price">¥89.90</div>
+                    </div>
+                </div>
+                <div class="grid-product-card">
+                    <div class="mock-product-img grid-product-img">商品12</div>
+                    <div class="grid-product-info">
+                        <div class="grid-product-name">优质大米 5kg装 东北大米</div>
+                        <div class="grid-product-price">¥68.00</div>
+                    </div>
+                </div>
+                <div class="grid-product-card">
+                    <div class="mock-product-img grid-product-img">商品13</div>
+                    <div class="grid-product-info">
+                        <div class="grid-product-name">纯牛奶 250ml*24盒 整箱装</div>
+                        <div class="grid-product-price">¥78.80</div>
+                    </div>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <!-- 商家推荐 -->
-            <section class="merchants-section">
-                <div class="section-header">
-                    <h2 class="section-title">商家推荐</h2>
-                    <a href="#" class="view-all-link">
-                        更多 <i class="fas fa-chevron-right arrow-icon"></i>
-                    </a>
-                </div>
-                <div class="merchant-grid">
-                    <div class="merchant-card">
-                        <div class="merchant-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <div class="merchant-info">
-                            <div class="merchant-name">乐清餐厅</div>
-                        </div>
-                    </div>
-                    <div class="merchant-card">
-                        <div class="merchant-icon">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                        <div class="merchant-info">
-                            <div class="merchant-name">购物中心</div>
-                        </div>
-                    </div>
-                    <div class="merchant-card">
-                        <div class="merchant-icon">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <div class="merchant-info">
-                            <div class="merchant-name">电影院</div>
-                        </div>
-                    </div>
-                    <div class="merchant-card">
-                        <div class="merchant-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="merchant-info">
-                            <div class="merchant-name">生活服务</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 商品展示 -->
-            <section class="products-section">
-                <div class="section-header">
-                    <h2 class="section-title">热门商品</h2>
-                    <a href="#" class="view-all-link">
-                        更多 <i class="fas fa-chevron-right arrow-icon"></i>
-                    </a>
-                </div>
-                <div class="product-grid">
-                    <div class="grid-product-card">
-                        <img src="https://picsum.photos/300/300?random=10" alt="商品图片" class="grid-product-img">
-                        <div class="grid-product-info">
-                            <div class="grid-product-name">乐清特色美食小吃 传统糕点礼盒装</div>
-                            <div class="grid-product-price">39.9</div>
-                        </div>
-                    </div>
-                    <div class="grid-product-card">
-                        <img src="https://picsum.photos/300/300?random=11" alt="商品图片" class="grid-product-img">
-                        <div class="grid-product-info">
-                            <div class="grid-product-name">精品茶叶礼盒 乐清本地特产</div>
-                            <div class="grid-product-price">88.0</div>
-                        </div>
-                    </div>
-                    <div class="grid-product-card">
-                        <img src="https://picsum.photos/300/300?random=12" alt="商品图片" class="grid-product-img">
-                        <div class="grid-product-info">
-                            <div class="grid-product-name">有机水果拼盘 新鲜时令水果</div>
-                            <div class="grid-product-price">29.9</div>
-                        </div>
-                    </div>
-                    <div class="grid-product-card">
-                        <img src="https://picsum.photos/300/300?random=13" alt="商品图片" class="grid-product-img">
-                        <div class="grid-product-info">
-                            <div class="grid-product-name">乐清旅游纪念品 特色手工艺品</div>
-                            <div class="grid-product-price">49.9</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- 底部导航栏 -->
-        <footer class="footer-nav">
-            <a href="#" class="nav-item active">
-                <i class="fas fa-home nav-icon"></i>
-                <span class="nav-text">首页</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-compass nav-icon"></i>
-                <span class="nav-text">发现</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-shopping-cart nav-icon"></i>
-                <span class="nav-text">购物车</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-user nav-icon"></i>
-                <span class="nav-text">我的</span>
-            </a>
-        </footer>
+    <!-- 底部导航栏 -->
+    <footer class="footer-nav">
+        <div class="nav-item active">
+            <div class="nav-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
+                </svg>
+            </div>
+            <span class="nav-text">首页</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M3,13H21V11H3M3,6V8H21V6M3,18V20H21V18M21,4H3C1.9,4 1,4.9 1,6V20C1,21.1 1.9,22 3,22H21C22.1,22 23,21.1 23,20V6C23,4.9 22.1,4 21,4Z"/>
+                </svg>
+            </div>
+            <span class="nav-text">分类</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M7,18C8.66,18 10,16.66 10,15C10,13.34 8.66,12 7,12C5.34,12 4,13.34 4,15C4,16.66 5.34,18 7,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M19,18A2,2 0 0,0 21,16A2,2 0 0,0 19,14C17.89,14 17,14.9 17,16A2,2 0 0,0 19,18Z"/>
+                </svg>
+            </div>
+            <span class="nav-text">购物车</span>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                </svg>
+            </div>
+            <span class="nav-text">我的</span>
+        </div>
+    </footer>
     </div>
 
-    <script src="/js/script.js"></script>
-</body>
+        <script>
+            // 优化后的轮播功能实现 - 通用轮播类
+            class Carousel {
+                constructor(containerSelector, indicatorSelector, slideSelector, autoSlide = false, interval = 3000) {
+                    this.container = document.querySelector(containerSelector);
+                    this.indicators = document.querySelectorAll(indicatorSelector);
+                    this.slides = document.querySelectorAll(slideSelector);
+                    this.currentSlide = 0;
+                    this.autoSlide = autoSlide;
+                    this.interval = interval;
+                    this.intervalId = null;
+                    
+                    if (!this.container || this.indicators.length === 0) {
+                        console.warn(`轮播初始化失败: 未找到元素 ${containerSelector} 或 ${indicatorSelector}`);
+                        return;
+                    }
+                    
+                    this.init();
+                }
+                
+                // 更新轮播位置和指示器
+                updatePosition() {
+                    this.container.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+                    
+                    // 更新指示器
+                    this.indicators.forEach((indicator, index) => {
+                        if (index === this.currentSlide) {
+                            indicator.classList.add('active');
+                        } else {
+                            indicator.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // 切换到指定索引
+                goTo(index) {
+                    if (index >= 0 && index < this.slides.length) {
+                        this.currentSlide = index;
+                        this.updatePosition();
+                    }
+                }
+                
+                // 上一张/下一张
+                navigate(direction) {
+                    let newIndex = this.currentSlide + direction;
+                    if (newIndex < 0) newIndex = this.slides.length - 1;
+                    if (newIndex >= this.slides.length) newIndex = 0;
+                    this.goTo(newIndex);
+                }
+                
+                // 开始自动轮播
+                startAutoSlide() {
+                    if (!this.autoSlide) return;
+                    
+                    this.stopAutoSlide(); // 确保没有重复的定时器
+                    this.intervalId = setInterval(() => {
+                        this.navigate(1); // 自动播放下一张
+                    }, this.interval);
+                }
+                
+                // 停止自动轮播
+                stopAutoSlide() {
+                    if (this.intervalId) {
+                        clearInterval(this.intervalId);
+                        this.intervalId = null;
+                    }
+                }
+                
+                // 初始化事件监听
+                initEvents() {
+                    // 点击指示器切换轮播图
+                    this.indicators.forEach((indicator, index) => {
+                        indicator.addEventListener('click', () => {
+                            this.goTo(index);
+                        });
+                    });
+                    
+                    // 触摸事件
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+                    
+                    this.container.addEventListener('touchstart', (e) => {
+                        touchStartX = e.changedTouches[0].screenX;
+                        this.stopAutoSlide(); // 触摸时暂停自动播放
+                    });
+                    
+                    this.container.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].screenX;
+                        const swipeThreshold = 30;
+                        
+                        if (touchEndX < touchStartX - swipeThreshold) {
+                            this.navigate(1); // 向左滑动
+                        } else if (touchEndX > touchStartX + swipeThreshold) {
+                            this.navigate(-1); // 向右滑动
+                        }
+                        
+                        // 触摸结束后重新开始自动播放
+                        if (this.autoSlide) {
+                            this.startAutoSlide();
+                        }
+                    });
+                }
+                
+                // 初始化轮播
+                init() {
+                    this.initEvents();
+                    this.updatePosition();
+                    
+                    // 开始自动轮播
+                    if (this.autoSlide) {
+                        this.startAutoSlide();
+                    }
+                }
+            }
+            
+            // 分类导航交互
+            function initCategoryNavigation() {
+                const categoryItems = document.querySelectorAll('.category-item');
+                if (categoryItems.length === 0) {
+                    console.warn('分类导航初始化失败: 未找到分类项');
+                    return;
+                }
+                
+                categoryItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        // 移除所有项的active类
+                        categoryItems.forEach(cat => cat.classList.remove('active'));
+                        // 为当前点击的项添加active类
+                        item.classList.add('active');
+                    });
+                });
+            }
+            
+            // 商品选项卡交互
+            function initProductTabs() {
+                const tabs = document.querySelectorAll('.product-tab');
+                const contents = document.querySelectorAll('.product-content');
+                
+                if (tabs.length === 0 || contents.length === 0) {
+                    console.warn('商品选项卡初始化失败: 未找到选项卡或内容项');
+                    return;
+                }
+                
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.getAttribute('data-tab');
+                        if (!tabId) return;
+                        
+                        // 更新选项卡状态
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        
+                        // 更新内容显示
+                        contents.forEach(content => {
+                            content.classList.remove('active');
+                            if (content.id === tabId) {
+                                content.classList.add('active');
+                            }
+                        });
+                    });
+                });
+            }
+            
+            // 初始化所有功能
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('页面加载完成，开始初始化功能...');
+                
+                // 初始化主轮播 - 带自动轮播
+                try {
+                    new Carousel(
+                        '.carousel-container',
+                        '.indicator',
+                        '.carousel-slide',
+                        true,  // 启用自动轮播
+                        3000   // 3秒间隔
+                    );
+                } catch (error) {
+                    console.error('主轮播初始化失败:', error);
+                }
+                
+                // 初始化分类导航
+                try {
+                    initCategoryNavigation();
+                } catch (error) {
+                    console.error('分类导航初始化失败:', error);
+                }
+                
+                // 使用Swiper初始化专区轮播
+                try {
+                    if (window.Swiper) {
+                        const zonesSwiper = new Swiper('.zones-swiper', {
+                            direction: 'horizontal',
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false
+                            },
+                            pagination: {
+                                el: '.zones-pagination',
+                                clickable: true,
+                                bulletClass: 'swiper-pagination-bullet',
+                                bulletActiveClass: 'swiper-pagination-bullet-active'
+                            }
+                        });
+                        console.log('专区轮播初始化成功');
+                    } else {
+                        console.error('Swiper未加载');
+                    }
+                } catch (error) {
+                    console.error('专区轮播初始化失败:', error);
+                }
+                
+                // 初始化商品选项卡
+                try {
+                    initProductTabs();
+                } catch (error) {
+                    console.error('商品选项卡初始化失败:', error);
+                }
+                
+                console.log('所有功能初始化完成');
+            });
+        </script>
+        <!-- Swiper JS -->
+        <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js"></script>
+        <!-- 项目JavaScript -->
+        <script src="/js/script.js"></script>
+    </body>
 </html>
